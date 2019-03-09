@@ -3,15 +3,13 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th scope="col">#</th>
           <th scope="col">Title:</th>
           <th scope="col">Created by:</th>
           <th scope="col">Description:</th>
         </tr>
       </thead>
       <tbody v-for="item in listItems" :key="item._id">
-        <tr>
-          <th scope="row">{{}}</th>
+        <tr @click="setActive(item)">
           <td>{{item.title}}</td>
           <td>{{item.creator}}</td>
           <td>{{item.description}}</td>
@@ -33,7 +31,11 @@ export default {
       return this.$store.state.listItems;
     }
   },
-  methods: {},
+  methods: {
+    setActive(item) {
+      this.$store.dispatch("setActive", item);
+    }
+  },
   components: {}
 };
 </script>

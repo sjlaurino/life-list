@@ -35,7 +35,6 @@ import listComponent from "@/components/ListComponent.vue";
 export default {
   name: "home",
   mounted() {
-    debugger;
     this.$store.dispatch("getList");
   },
   data() {
