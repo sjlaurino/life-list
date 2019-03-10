@@ -13,6 +13,7 @@ export default new Vuex.Store({
   state: {
     listItems: [],
     activeItem: {},
+    activeId: {},
     notes: []
 
   },
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     activeItem(state, data) {
       state.activeItem = data
     },
+    activeId(state, data) {
+      state.activeId = data
+    },
     setNotes(state, data) {
       state.notes = data
     }
@@ -37,10 +41,11 @@ export default new Vuex.Store({
           dispatch('getList')
         })
     },
-    getList({ commit, dispatch }) {
+    getList({ commit, dispatch }, id) {
       _api.get('bugs')
         .then(res => {
           commit('setList', res.data.results)
+          commit('activeId', id)
         })
     },
     setActive({ commit, dispatch }, item) {
@@ -48,18 +53,17 @@ export default new Vuex.Store({
       router.push({ name: 'itemDetails', params: { id: item._id } })
     },
     postNote({ commit, dispatch }, payload) {
-      let id = this.state.activeItem._id
-      _api.post(`${id} / notes`, payload)
+      let id = this.state.activeId
+      _api.post('bugs/' + id + '/notes', payload)
         .then(res => {
-          dispatch('getNotes')
+          dispatch('getNotes', id)
         })
     },
-    getNotes({ commit, dispatch }) {
-      let id = this.state.activeItem._id
-      _api.get(`${id} / notes`)
+    getNotes({ commit, dispatch }, id) {
+      _api.get('bugs/' + id + '/notes')
         .then(res => {
           commit('setNotes', res.data.results)
         })
-    }
+    },
   }
 })

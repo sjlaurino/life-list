@@ -1,19 +1,19 @@
 
 <template>
-  <div class="col">
-    <div v-for="note in notes" class="notes col-2" :key="note._id">
+  <div>
+    <div v-for="note in notes" class="notes col-6" :key="note._id">
       <div class="card">
         <div class="card-body">
           <p class="card-text">{{note.content}}</p>
           <p class="card-text">Created by:{{note.creator}}</p>
           <select v-model="newNote.flagged">
-            <option :value="flagged" v-for="flagged in flags" :key="flagged"></option>
+            <option :value="flagged" v-for="flagged in flags" :key="flagged">{{flagged}}</option>
           </select>
         </div>
       </div>
     </div>
 
-    <form @submit.prevent="addNote">
+    <form @submit.prevent="addNote()">
       <div class="row d-flex justify-content-center">
         <div class="col-4">
           <input type="text" v-model="creator" class="form-control" placeholder="Created By...">
@@ -30,6 +30,10 @@
 <script>
 export default {
   name: "NotesComponent",
+  mounted() {
+    let routeId = this.$route.params.id;
+    this.$store.dispatch("getNotes", routeId);
+  },
   props: [],
   data() {
     return {
@@ -47,7 +51,14 @@ export default {
     }
   },
   methods: {
-    addNote() {}
+    addNote() {
+      let payload = {
+        creator: this.creator,
+        content: this.content,
+        flagged: this.flagged
+      };
+      this.$store.dispatch("postNote", payload);
+    }
   },
   components: {}
 };

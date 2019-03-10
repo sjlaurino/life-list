@@ -1,7 +1,7 @@
 <template>
   <div class="row d-flex justify-content-center">
     <div class="col-8 mt-5">
-      <h1>{{item.title}}</h1>
+      <h1>{{findActive.title}}</h1>
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -9,10 +9,10 @@
             <th scope="col">Description:</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="item">
           <tr>
-            <td>{{item.creator}}</td>
-            <td>{{item.description}}</td>
+            <td>{{findActive.creator}}</td>
+            <td>{{findActive.description}}</td>
           </tr>
         </tbody>
       </table>
@@ -29,8 +29,8 @@ import NotesComponent from "@/components/NotesComponent.vue";
 export default {
   name: "itemDetails",
   mounted() {
-    this.$store.dispatch("getList");
-    this.$store.dispatch("getNotes");
+    let id = this.$route.params.id;
+    this.$store.dispatch("getList", id);
   },
   props: ["id"],
   data() {
@@ -39,6 +39,11 @@ export default {
   computed: {
     item() {
       return this.$store.state.activeItem;
+    },
+    findActive() {
+      return this.$store.state.listItems.find(item => {
+        return item._id == this.$route.params.id;
+      });
     }
   },
   methods: {},
@@ -47,3 +52,8 @@ export default {
   }
 };
 </script>
+<style>
+.item {
+  cursor: pointer;
+}
+</style>
