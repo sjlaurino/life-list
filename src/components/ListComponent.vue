@@ -19,7 +19,7 @@
         <tr>
           <td @click="setActive(item)">{{item.title}}</td>
           <td @click="setActive(item)">{{item.creator}}</td>
-          <td @click="setActive(item)">{{item.createdAt | formatTime }}</td>
+          <td @click="setActive(item)">{{item.createdAt | formatDate }}</td>
           <td @click="setActive(item)">{{item.description}}</td>
           <button
             class="btn btn-danger mt-1 open"
@@ -64,7 +64,7 @@ export default {
   },
   components: {
     filters: {
-      formatTime(date) {
+      formatDate(date) {
         debugger;
         return Moment(String(date)).format("MM/DD/YYYY, LT");
       }
