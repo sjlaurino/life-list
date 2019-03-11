@@ -27,7 +27,12 @@
             <p class="card-text">{{note.content}}</p>
             <p class="card-text">Created by:{{note.creator}}</p>
             <select v-model="newNote.flagged">
-              <option :value="flagged" v-for="flagged in flags" :key="flagged">{{flagged}}</option>
+              <option
+                @change="toggleNote(note.flagged)"
+                :value="flagged"
+                v-for="flagged in flags"
+                :key="flagged"
+              >{{flagged}}</option>
             </select>
           </div>
           <i
@@ -80,6 +85,11 @@ export default {
     },
     removeNote(id) {
       this.$store.dispatch("removeNote", id);
+    },
+    //toggle changing all notes at once. Haven't finished the edit in store.
+    toggleNote(data) {
+      debugger;
+      this.$store.dispatch("toggleNote", data);
     }
   },
   components: {}

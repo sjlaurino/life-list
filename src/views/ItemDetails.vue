@@ -29,7 +29,7 @@
           </tbody>
         </table>
         <span v-show="isOpen">
-          <form @submit.prevent="editItem(findActive._id)">
+          <form @submit.prevent="editItem(payload, findActive._id)">
             <h5 class="mb-3 mt-3">Edit '{{findActive.title}}'</h5>
             <div class="row d-flex justify-content-center">
               <div class="col-3">
@@ -97,8 +97,7 @@ export default {
     homeRoute() {
       this.$store.commit("homeRoute");
     },
-    editItem(id) {
-      debugger;
+    editItem(payload, id) {
       this.$store.dispatch("editItem", id);
     }
   },

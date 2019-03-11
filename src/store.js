@@ -53,8 +53,9 @@ export default new Vuex.Store({
     },
     getOneItem({ commit, dispatch }, item) {
       //this id may need to come straight from router...
-      _api.get('bugs' + item._id)
+      _api.get('bugs/' + item._id)
         .then(res => {
+          debugger
           commit('activeItem', res.data.results)
         })
     },
@@ -91,10 +92,11 @@ export default new Vuex.Store({
       dispatch('homeRoute')
 
     },
-    editItem({ commit, dispatch }, id) {
-      debugger
+    editItem({ commit, dispatch }, payload, id) {
+      //How do I pass a payload of new data to this? what does the DB accept?
       _api.put('bugs/' + id)
         .then(res => {
+          debugger
           dispatch('getOneItem', res.data.results)
         })
     },
