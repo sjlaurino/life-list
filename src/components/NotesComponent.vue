@@ -84,10 +84,11 @@ export default {
   methods: {
     addNote() {
       let payload = {
-        creator: this.creator,
-        content: this.content,
-        flagged: this.flagged
+        creator: this.newNote.creator,
+        content: this.newNote.content,
+        flagged: this.newNote.flagged
       };
+      debugger;
       this.$store.dispatch("postNote", payload);
     },
     removeNote(id) {
@@ -95,7 +96,6 @@ export default {
     },
     //toggle changing all notes at once. Haven't finished the edit in store.
     toggleNote(data) {
-      debugger;
       this.$store.dispatch("toggleNote", data);
     }
   },

@@ -85,7 +85,6 @@ export default {
   },
   computed: {
     item() {
-      debugger;
       return this.$store.state.activeItem;
     },
     findActive() {

@@ -70,6 +70,7 @@ export default new Vuex.Store({
       router.push({ name: 'itemDetails', params: { id: item._id } })
     },
     postNote({ commit, dispatch }, payload) {
+      debugger
       let id = this.state.activeId
       _api.post('bugs/' + id + '/notes', payload)
         .then(res => {
