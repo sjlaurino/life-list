@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="row d-flex justify-content-center">
-      <div class="col-8">
+      <div v-if="findActive.title" class="col-8">
         <h1>{{findActive.title}}</h1>
         <table class="table table-bordered">
           <thead>
@@ -29,7 +29,7 @@
           </tbody>
         </table>
         <span v-show="isOpen">
-          <form @submit.prevent="editItem(payload, findActive._id)">
+          <form @submit.prevent="editItem(findActive._id)">
             <h5 class="mb-3 mt-3">Edit '{{findActive.title}}'</h5>
             <div class="row d-flex justify-content-center">
               <div class="col-3">
@@ -85,20 +85,32 @@ export default {
   },
   computed: {
     item() {
+      debugger;
       return this.$store.state.activeItem;
     },
     findActive() {
-      return this.$store.state.listItems.find(item => {
-        return item._id == this.$route.params.id;
-      });
+      if (this.$store.state.activeItem._id) {
+        return this.$store.state.activeItem;
+      }
+      return (
+        this.$store.state.listItems.find(item => {
+          return item._id == this.$route.params.id;
+        }) || {}
+      );
     }
   },
   methods: {
     homeRoute() {
       this.$store.commit("homeRoute");
     },
-    editItem(payload, id) {
-      this.$store.dispatch("editItem", id);
+    editItem(id) {
+      let newData = {
+        creator: this.creator,
+        title: this.title,
+        description: this.description,
+        id: id
+      };
+      this.$store.dispatch("editItem", newData);
     }
   },
   components: {

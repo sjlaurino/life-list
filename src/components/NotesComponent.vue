@@ -6,10 +6,15 @@
       <form @submit.prevent="addNote()">
         <div class="row d-flex justify-content-center">
           <div class="col-4">
-            <input type="text" v-model="creator" class="form-control" placeholder="Created By...">
+            <input
+              type="text"
+              v-model="newNote.creator"
+              class="form-control"
+              placeholder="Created By..."
+            >
           </div>
           <div class="col-4">
-            <input type="text" v-model="content" class="form-control" placeholder="Note...">
+            <input type="text" v-model="newNote.content" class="form-control" placeholder="Note...">
           </div>
         </div>
         <button type="submit" class="submit btn btn-primary mt-1">Submit</button>
@@ -69,9 +74,11 @@ export default {
       return this.$store.state.notes;
     },
     findActive() {
-      return this.$store.state.listItems.find(item => {
-        return item._id == this.$route.params.id;
-      });
+      return (
+        this.$store.state.listItems.find(item => {
+          return item._id == this.$route.params.id;
+        }) || {}
+      );
     }
   },
   methods: {
