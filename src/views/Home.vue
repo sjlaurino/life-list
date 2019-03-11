@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <form @submit.prevent="addItem">
-      <h1 class="mb-3 mt-3">Welcome to Your Life List!</h1>
+      <h1 class="mb-3 mt-3 title">Welcome to Your Life List!</h1>
       <div class="row d-flex justify-content-center">
         <div class="col-3">
           <input type="text" v-model="creator" class="form-control" placeholder="Created By...">
@@ -62,6 +62,10 @@ export default {
 <style scoped>
 .submit {
   cursor: pointer;
+}
+.title {
+  font-family: "Amatic SC", cursive;
+  font-size: 50px;
 }
 </style>
 

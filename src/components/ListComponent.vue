@@ -5,8 +5,9 @@
         <tr>
           <th scope="col">Title:</th>
           <th scope="col">Created by:</th>
+          <th scope="col">Created at:</th>
           <th scope="col">Description:</th>
-          <th scope="col">Status:</th>
+          <th @click="sortStatus()" class="sort" scope="col">Status:</th>
         </tr>
       </thead>
       <tbody
@@ -18,6 +19,7 @@
         <tr>
           <td @click="setActive(item)">{{item.title}}</td>
           <td @click="setActive(item)">{{item.creator}}</td>
+          <td @click="setActive(item)">{{item.createdAt | formatTime }}</td>
           <td @click="setActive(item)">{{item.description}}</td>
           <button
             class="btn btn-danger mt-1 open"
@@ -31,7 +33,10 @@
   </div>
 </template>
 
+
 <script>
+import Moment from "moment";
+
 export default {
   name: "list",
   props: [],
@@ -49,9 +54,22 @@ export default {
     },
     toggleClosed(id) {
       this.$store.dispatch("toggleClosed", id);
+    },
+    // sortDate() {
+    //   return this.$store.listItems.sort(it);
+    // },
+    sortStatus() {
+      this.$store.state.listItems.sort((a, b) => a.closed - b.closed);
     }
   },
-  components: {}
+  components: {
+    filters: {
+      formatTime(date) {
+        debugger;
+        return Moment(String(date)).format("MM/DD/YYYY, LT");
+      }
+    }
+  }
 };
 </script>
 <style scoped>
@@ -67,5 +85,8 @@ export default {
 .header {
   background-color: black;
   color: white;
+}
+.sort {
+  cursor: pointer;
 }
 </style>

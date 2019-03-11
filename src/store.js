@@ -35,7 +35,7 @@ export default new Vuex.Store({
     },
     homeRoute() {
       router.go(-1);
-    }
+    },
   },
   actions: {
     postItem({ commit, dispatch }, payload) {
@@ -97,6 +97,11 @@ export default new Vuex.Store({
         .then(res => {
           dispatch('getOneItem', res.data.results)
         })
+    },
+    removeNote({ commit, dispatch }, id) {
+      // appears that this can only be done on open bugs?
+      _api.delete('bugs/' + this.state.activeId + '/notes/' + id)
+      dispatch('getNotes', this.state.activeId)
     }
   }
 })

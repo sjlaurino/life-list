@@ -30,6 +30,11 @@
               <option :value="flagged" v-for="flagged in flags" :key="flagged">{{flagged}}</option>
             </select>
           </div>
+          <i
+            v-show="!findActive.closed"
+            @click="removeNote(note._id)"
+            class="fas fa-trash-alt mb-1"
+          ></i>
         </div>
       </div>
     </div>
@@ -72,8 +77,17 @@ export default {
         flagged: this.flagged
       };
       this.$store.dispatch("postNote", payload);
+    },
+    removeNote(id) {
+      this.$store.dispatch("removeNote", id);
     }
   },
   components: {}
 };
 </script>
+<style>
+.fa-trash-alt {
+  cursor: pointer;
+}
+</style>
+
