@@ -3,20 +3,20 @@
     <form @submit.prevent="addItem">
       <h1 class="mb-3 mt-3">Welcome to Your Life List!</h1>
       <div class="row d-flex justify-content-center">
-        <div class="col-2">
+        <div class="col-3">
           <input type="text" v-model="creator" class="form-control" placeholder="Created By...">
         </div>
-        <div class="col-2">
+        <div class="col-3">
           <input type="text" v-model="title" class="form-control" placeholder="Title...">
         </div>
       </div>
       <div class="row d-flex justify-content-center">
-        <div class="col-4">
+        <div class="col-6">
           <textarea
             type="text"
             v-model="description"
             class="form-control"
-            placeholder="Type Life List Item Here..."
+            placeholder="Describe Life List Item..."
           ></textarea>
         </div>
       </div>

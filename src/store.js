@@ -32,6 +32,9 @@ export default new Vuex.Store({
     },
     setNotes(state, data) {
       state.notes = data
+    },
+    homeRoute() {
+      router.go(-1);
     }
   },
   actions: {
@@ -46,6 +49,12 @@ export default new Vuex.Store({
         .then(res => {
           commit('setList', res.data.results)
           commit('activeId', id)
+        })
+    },
+    getListStatus({ commit, dispatch }) {
+      _api.get('bugs')
+        .then(res => {
+          commit('setList', res.data.results)
         })
     },
     setActive({ commit, dispatch }, item) {
@@ -65,5 +74,22 @@ export default new Vuex.Store({
           commit('setNotes', res.data.results)
         })
     },
+    toggleClosed({ commit, dispatch }, id) {
+      _api.delete('bugs/' + id)
+        .then(res => {
+          dispatch('getListStatus')
+        })
+    },
+    homeRoute(commit, dispatch) {
+      dispatch('homeRoute')
+
+    },
+    editItem({ commit, dispatch }, id) {
+      _api.put('bugs/' + id)
+        .then(res => {
+          //need to just refresh the item an page i'm on. so new action to get One? 
+          //also need the onclick to be on a form that generates so you can edit and I need to send the payload to edit
+        })
+    }
   }
 })
