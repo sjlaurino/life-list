@@ -21,13 +21,42 @@
               <td>
                 {{findActive.description}}
                 <i
-                  @click="editItem(findActive._id)"
+                  v-on:click="isOpen = !isOpen"
                   class="fas fa-pencil-alt ml-2"
                 ></i>
               </td>
             </tr>
           </tbody>
         </table>
+        <span v-show="isOpen">
+          <form @submit.prevent="editItem(findActive._id)">
+            <h5 class="mb-3 mt-3">Edit '{{findActive.title}}'</h5>
+            <div class="row d-flex justify-content-center">
+              <div class="col-3">
+                <input
+                  type="text"
+                  v-model="creator"
+                  class="form-control"
+                  placeholder="Created By..."
+                >
+              </div>
+              <div class="col-3">
+                <input type="text" v-model="title" class="form-control" placeholder="Title...">
+              </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+              <div class="col-6">
+                <textarea
+                  type="text"
+                  v-model="description"
+                  class="form-control"
+                  placeholder="Describe Life List Item..."
+                ></textarea>
+              </div>
+            </div>
+            <button type="submit" class="submit btn btn-primary mt-1 mb-5">Submit</button>
+          </form>
+        </span>
       </div>
     </div>
     <div class="row d-flex justify-content-center">
@@ -47,7 +76,12 @@ export default {
   },
   props: ["id"],
   data() {
-    return {};
+    return {
+      isOpen: false,
+      description: "",
+      title: "",
+      creator: ""
+    };
   },
   computed: {
     item() {
@@ -64,7 +98,8 @@ export default {
       this.$store.commit("homeRoute");
     },
     editItem(id) {
-      this.$store.commit("editItem", id);
+      debugger;
+      this.$store.dispatch("editItem", id);
     }
   },
   components: {

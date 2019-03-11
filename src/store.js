@@ -51,6 +51,13 @@ export default new Vuex.Store({
           commit('activeId', id)
         })
     },
+    getOneItem({ commit, dispatch }, item) {
+      //this id may need to come straight from router...
+      _api.get('bugs' + item._id)
+        .then(res => {
+          commit('activeItem', res.data.results)
+        })
+    },
     getListStatus({ commit, dispatch }) {
       _api.get('bugs')
         .then(res => {
@@ -85,10 +92,10 @@ export default new Vuex.Store({
 
     },
     editItem({ commit, dispatch }, id) {
+      debugger
       _api.put('bugs/' + id)
         .then(res => {
-          //need to just refresh the item an page i'm on. so new action to get One? 
-          //also need the onclick to be on a form that generates so you can edit and I need to send the payload to edit
+          dispatch('getOneItem', res.data.results)
         })
     }
   }
