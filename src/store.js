@@ -55,7 +55,6 @@ export default new Vuex.Store({
       //this id may need to come straight from router...
       _api.get('bugs/' + id)
         .then(res => {
-          debugger
           commit('activeItem', res.data.results)
         })
     },
@@ -70,7 +69,6 @@ export default new Vuex.Store({
       router.push({ name: 'itemDetails', params: { id: item._id } })
     },
     postNote({ commit, dispatch }, payload) {
-      debugger
       let id = this.state.activeId
       _api.post('bugs/' + id + '/notes', payload)
         .then(res => {
@@ -96,7 +94,6 @@ export default new Vuex.Store({
     editItem({ commit, dispatch }, newData) {
       _api.put('bugs/' + newData.id, newData)
         .then(res => {
-          debugger
           dispatch('getOneItem', newData.id)
         })
     },

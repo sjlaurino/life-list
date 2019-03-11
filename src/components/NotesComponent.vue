@@ -88,7 +88,6 @@ export default {
         content: this.newNote.content,
         flagged: this.newNote.flagged
       };
-      debugger;
       this.$store.dispatch("postNote", payload);
     },
     removeNote(id) {
