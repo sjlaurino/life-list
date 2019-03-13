@@ -2,14 +2,14 @@
   <div>
     <div class="row">
       <div class="col">
-        <i @click="homeRoute()" class="fas fa-home d-flex justify-content-start mt-1 ml-1"></i>
+        <i @click="homeRoute()" class="fas fa-home fa-2x d-flex justify-content-start mt-1 ml-1"></i>
       </div>
     </div>
     <div class="row d-flex justify-content-center">
       <div v-if="findActive.title" class="col-8">
         <h1>{{findActive.title}}</h1>
         <table class="table table-bordered">
-          <thead>
+          <thead class="header">
             <tr>
               <th scope="col">Created by:</th>
               <th scope="col">
@@ -22,7 +22,7 @@
               </th>
             </tr>
           </thead>
-          <tbody class="item">
+          <tbody class="item" :class="findActive.closed ? 'table-primary' :'table-warning'">
             <tr>
               <td>{{findActive.creator}}</td>
               <td>{{findActive.description}}</td>
@@ -61,7 +61,15 @@
       </div>
     </div>
     <div class="row d-flex justify-content-center">
+      <div class="col">
+        <h5>Notes:</h5>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center">
       <NotesComponent></NotesComponent>
+      <h3
+        v-if="!this.$store.state.notes.length > 0 && findActive.closed"
+      >list item does not contain any notes</h3>
     </div>
   </div>
 </template>
@@ -124,5 +132,9 @@ export default {
 }
 .fa-home {
   cursor: pointer;
+}
+.header {
+  background-color: black;
+  color: white;
 }
 </style>

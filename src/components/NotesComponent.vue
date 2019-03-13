@@ -20,11 +20,6 @@
         <button type="submit" class="submit btn btn-primary mt-1">Submit</button>
       </form>
     </div>
-    <div class="row">
-      <div class="col text-center mt-3">
-        <h5>Notes:</h5>
-      </div>
-    </div>
     <div class="row d-flex justify-content-center">
       <div v-for="note in notes" class="notes col-5" :key="note._id">
         <div class="card mt-2">

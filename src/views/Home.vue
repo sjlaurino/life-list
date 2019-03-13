@@ -48,12 +48,27 @@ export default {
     listComponent
   },
   methods: {
-    addItem() {
+    addItem: function(e) {
       let payload = {
         creator: this.creator,
         title: this.title,
         description: this.description
       };
+      if (this.creator && this.title && this.description) {
+      }
+
+      if (!this.creator) {
+        this.$swal("FREEZE!", "Name required", "OK");
+      }
+      if (!this.title) {
+        this.$swal("FREEZE!", "Title required", "OK");
+      }
+      if (!this.description) {
+        this.$swal("FREEZE!", "Description required", "OK");
+      }
+
+      e.preventDefault();
+
       this.$store.dispatch("postItem", payload);
     }
   }
