@@ -7,7 +7,7 @@
           <th scope="col">Created by:</th>
           <th scope="col">Created at:</th>
           <th scope="col">Description:</th>
-          <th @click="sortStatus()" class="sort" scope="col">Status:</th>
+          <th @click="toggle++;" class="sort" scope="col">Status:</th>
         </tr>
       </thead>
       <tbody
@@ -36,16 +36,23 @@
 
 <script>
 import Moment from "moment";
+import { debug } from "util";
 
 export default {
   name: "list",
   props: [],
   data() {
-    return {};
+    return {
+      toggle: 0
+    };
   },
   computed: {
     listItems() {
-      return this.$store.state.listItems;
+      let lists = [...this.$store.state.listItems];
+      if (this.toggle % 2) {
+        lists.sort((a, b) => a.closed - b.closed);
+      }
+      return lists;
     }
   },
   methods: {
@@ -54,22 +61,20 @@ export default {
     },
     toggleClosed(id) {
       this.$store.dispatch("toggleClosed", id);
-    },
+    }
     // sortDate() {
     //   return this.$store.listItems.sort(it);
     // },
-    sortStatus() {
-      this.$store.state.listItems.sort((a, b) => a.closed - b.closed);
+    // sortStatusToggle() {
+    // this.$store.state.listItems.sort((a, b) => a.closed - b.closed);
+    // }
+  },
+  filters: {
+    formatDate(date) {
+      return Moment(String(date)).format("MM/DD/YYYY, LT");
     }
   },
-  components: {
-    filters: {
-      formatDate(date) {
-        debugger;
-        return Moment(String(date)).format("MM/DD/YYYY, LT");
-      }
-    }
-  }
+  components: {}
 };
 </script>
 <style scoped>
