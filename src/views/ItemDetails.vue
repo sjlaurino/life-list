@@ -12,19 +12,20 @@
           <thead>
             <tr>
               <th scope="col">Created by:</th>
-              <th scope="col">Description:</th>
+              <th scope="col">
+                Description:
+                <i
+                  v-if="!findActive.closed"
+                  v-on:click="isOpen = !isOpen"
+                  class="fas fa-pencil-alt ml-2"
+                ></i>
+              </th>
             </tr>
           </thead>
           <tbody class="item">
             <tr>
               <td>{{findActive.creator}}</td>
-              <td>
-                {{findActive.description}}
-                <i
-                  v-on:click="isOpen = !isOpen"
-                  class="fas fa-pencil-alt ml-2"
-                ></i>
-              </td>
+              <td>{{findActive.description}}</td>
             </tr>
           </tbody>
         </table>
