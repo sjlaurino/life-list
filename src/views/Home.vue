@@ -1,7 +1,7 @@
 <template>
   <div class="home">
+    <h1 class="mb-3 mt-3 title">Welcome to Your Life List!</h1>
     <form @submit.prevent="addItem">
-      <h1 class="mb-3 mt-3 title">Welcome to Your Life List!</h1>
       <div class="row d-flex justify-content-center">
         <div class="col-3">
           <input type="text" v-model="creator" class="form-control" placeholder="Created By...">
@@ -20,7 +20,7 @@
           ></textarea>
         </div>
       </div>
-      <button type="submit" class="submit btn btn-primary mt-1">Submit</button>
+      <button type="submit" class="submit btn btn-warning mt-1">Submit</button>
     </form>
     <div class="row d-flex justify-content-center mt-5">
       <listComponent></listComponent>
@@ -70,6 +70,8 @@ export default {
       e.preventDefault();
 
       this.$store.dispatch("postItem", payload);
+
+      event.target.reset();
     }
   }
 };
@@ -79,8 +81,13 @@ export default {
   cursor: pointer;
 }
 .title {
+  color: black;
   font-family: "Amatic SC", cursive;
   font-size: 50px;
+  font-weight: bold;
+}
+.home {
+  background-color: azure;
 }
 </style>
 

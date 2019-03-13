@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg">
     <div class="row">
       <div class="col">
         <i @click="homeRoute()" class="fas fa-home fa-2x d-flex justify-content-start mt-1 ml-1"></i>
@@ -136,5 +136,8 @@ export default {
 .header {
   background-color: black;
   color: white;
+}
+.bg {
+  background-color: azure;
 }
 </style>

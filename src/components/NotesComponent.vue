@@ -84,6 +84,7 @@ export default {
         flagged: this.newNote.flagged
       };
       this.$store.dispatch("postNote", payload);
+      event.target.reset();
     },
     removeNote(id) {
       this.$store.dispatch("removeNote", id);

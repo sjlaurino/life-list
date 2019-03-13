@@ -11,7 +11,9 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: azure;
 }
+/* can't get bg color to go all the way to top of screen */
 
 #nav {
   padding: 30px;
